@@ -1,0 +1,11 @@
+body {
+    
+}
+#notatka {
+    background-color: rgb(185, 185, 185);
+    display: flex;
+    flex-direction: column;
+}
+#tablica {
+    display: flex;
+}
