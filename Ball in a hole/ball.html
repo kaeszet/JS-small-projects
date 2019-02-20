@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ball</title>
+    <link rel="stylesheet" type="text/css" href="ball_css.css">
+</head>
+
+<body onload="winload()">
+    <div>Czas: <span id="time"></span></div>
+    <div>Punkty: <span id="score">0</span></div>
+    <div class="poll">
+        <div class="ball">
+
+        </div>
+        <div class="hole">
+
+        </div>
+    </div>
+
+    <pre class="output"></pre>
+    <script>
+        let ball = document.querySelector('.ball');
+        var poll = document.querySelector('.poll');
+        let output = document.querySelector('.output');
+        var hole = document.querySelector('.hole');
+        let score_f = document.querySelector('#score')
+        let maxX = poll.clientWidth - ball.clientWidth;
+        let maxY = poll.clientHeight - ball.clientHeight;
+        var prepHoleHeight = poll.clientHeight - hole.clientHeight;
+        var prepHoleWidth = poll.clientWidth - hole.clientWidth;
+        let randomX = (Math.floor(Math.random() * prepHoleWidth) + 1);
+        let randomY = (Math.floor(Math.random() * prepHoleHeight) + 1);
+        let won = false;
+        let score = 0;
+        
+
+        function winload() {
+
+            window.addEventListener('deviceorientation', moveBall)
+            function moveBall(event) {
+                console.log(event)
+                let a = event.absolute;
+                let z = event.alpha;
+                let x = event.beta;
+                let y = event.gamma;
+
+                output.innerHTML = "beta : " + x + "\n";
+                output.innerHTML += "gamma: " + y + "\n";
+                
+                
+
+                if (x > 90) {
+                    x = 90
+                };
+                if (x < -90) {
+                    x = -90
+                };
+                x += 90;
+                y += 90;
+
+                ball.style.top = (maxX * x / 180) + "px";
+                ball.style.left = (maxY * y / 180) + "px";
+                let holeX = parseInt(hole.style.left, 10);
+                let holeY = parseInt(hole.style.top, 10);
+                let ballX = parseInt(ball.style.left, 10);
+                let ballY = parseInt(ball.style.top, 10);
+
+                if (ballX >= holeX && ballX <= holeX + 10 && ballY >= holeY && ballY <= holeY + 10) {
+                    score++;
+                    prepHole();
+                    alert("Trafiony");
+                    score_f.innerHTML = score;
+
+
+                }
+
+
+
+            }
+            function prepHole(event) {
+
+                let randomX = (Math.floor(Math.random() * prepHoleWidth) + 1)
+                let randomY = (Math.floor(Math.random() * prepHoleHeight) + 1)
+                hole.style.left = randomX + "px";
+                hole.style.top = randomY + "px";
+
+
+            }
+            prepHole();
+
+        }
+
+        function loaded() {
+
+            function prepHole() {
+
+                let randomX = (Math.floor(Math.random() * prepHoleWidth) + 1)
+                let randomY = (Math.floor(Math.random() * prepHoleHeight) + 1)
+                hole.style.left = randomX + "px";
+                hole.style.top = randomY + "px";
+
+
+            }
+            prepHole();
+
+        }
+
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10)
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    alert("Koniec gry. Zdobyłeś " + score + " punktów.")
+                    location.reload();
+                }
+            }, 1000);
+        }
+
+        setTimeout(function () {
+            var setCountdown = 60 * 2,
+                display = document.querySelector('#time');
+            startTimer(setCountdown, display);
+        }, 20);
+        setTimeout(loaded, 10)
+        setInterval(function () {
+            time--;
+        }, 1000)
+
+
+    </script>
+</body>
+
+</html>
