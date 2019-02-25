@@ -17,7 +17,8 @@ class Notatka {
         this.tresc = tresc;
         this.podpis = podpis;
         this.czyPrzypieta = false;
-        this.czas = Date.Now();
+        this.czas = Date.now();
+        this.id = czas.valueOf();
         this.kolor = _kolor;  
     }
 }
@@ -27,6 +28,7 @@ function start() {
     notatka_pojemnik = document.getElementById("#tablica");
     przyciskWstaw = document.getElementById("#wstaw");
     przyciskWstaw = addEventListener("click", stworzNotatke);
+    Wczytaj();
 }
 function stworzNotatke() {
     temat = document.getElementById("#temat");
@@ -35,6 +37,7 @@ function stworzNotatke() {
     notatka = new Notatka(temat,tresc,podpis);
     tablicaNotatek.push(notatka);
     Zapisz();
+    naTablice(notatka, true);
 }
 function Zapisz() {
     localStorage.setItem("tablicaNotatek", JSON.stringify(tablicaNotatek));
@@ -42,18 +45,55 @@ function Zapisz() {
 function Wczytaj() {
     tablicaNotatek = JSON.parse(localStorage.getItem('tablicaNotatek'));
 }
+function Pokaz() {
+    tablicaNotatek.forEach(element => {
+        naTablice(element);
+    });
+}
+function Odswiez() {
+    Wczytaj();
+    notatka_pojemnik.innerHTML = '';
+    Pokaz();
+}
+function Przypnij(id) {
+    let tempid;
+    for(i=0; i < tablicaNotatek.Length; i++) {
+        if (id == notatka.id) {
+            tempId = notatka.id;
+        }
+    }
+    tablicaNotatek[tempid].czyPrzypieta = !tablicaNotatek[tempid].czyPrzypieta;
+    Zapisz();
+    Odswiez();
+    
+}
+function Usun(id) {
+    let tempId;
+    let doWywalenia;
+    for(i=0; i < tablicaNotatek.Length; i++) {
+        if (id == notatka.id) {
+            tempId = notatka.id;
+        }
+    }
+    tablicaNotatek.splice(tempId, 1);
+    doWywalenia = document.getElementById("notatka nr " + id);
+    notatka_pojemnik.removechild(doWywalenia);
+    Zapisz();
+
+}
 function zmienKolor(_kolor) {
-    notatka.kolor = _kolor;
+    //notatka.kolor = _kolor;
+    //zm
 }
 function naTablice(notatka, czyPierwsza) {
     if(czyPierwsza == undefined) {
         czyPierwsza = false;
     }
-    let losoweID = new Date();
+    
     notatka_div = document.createElement('div');
     notatka_div.classList.add('nowa_notatka');
     notatka_div.classList.add(notatka.kolor);
-    notatka_div.id = 'notatka_nr ' + losoweID.valueOf();
+    notatka_div.id = 'notatka_nr ' + notatka.id;
     notatka_div.innerHTML= 
     `
         <div id='nowa_notatka_temat'>${notatka.temat}</div>
@@ -78,9 +118,27 @@ function naTablice(notatka, czyPierwsza) {
     }
     else{
         //let pierwszyNaTablicy = tablica[0].id;
-        let pierwszaNotatka = document.getElementById(`${'notatka_nr ' + tablica[0].id}`);
+        let pierwszaNotatka = document.getElementById(`${'notatka_nr ' + tablicaNotatek[0].id}`);
         notatka_pojemnik.insertBefore(notatka_div, pierwszaNotatka);
+        Sortuj();
     }
+    document.getElementById("usun").addEventListener('click', function() { return Usun(notatka.id)});
     
     
+}
+function Sortuj() {
+    tablicaNotatek.sort(function(not1, not2) {
+        return not2.czas - not1.czas;
+    });
+    tablicaNotatek.sort(function(not1, not2) {
+        if(not1.czyPrzypieta == true && not2.czyPrzypieta == true) {
+            return 0;
+        }
+        if(not1.czyPrzypieta == true) {
+            return -1;
+        }
+        else{
+            return 1;
+        }
+    })
 }

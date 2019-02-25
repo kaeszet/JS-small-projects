@@ -2,10 +2,97 @@ body {
     
 }
 #notatka {
-    background-color: rgb(185, 185, 185);
+    background-color: #efefef;
     display: flex;
     flex-direction: column;
+    margin-left: 50px;
+    margin-right: 50px;
+    
+}
+#temat {
+    letter-spacing: 2px;
+}
+#tresc {
+    font-style: oblique;
+}
+#podpis {
+    font-weight: bold;
+    font-size: 20px;
+}
+#wstaw {
+    width: 25%;
+    margin: 5px;
+    height: 50px;
+    font-size: 20px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+#wstaw:hover {
+    background-color: #666666;
+    letter-spacing: 4px;
+    color: #ffffff;
 }
 #tablica {
     display: flex;
+}
+.nowa_notatka {
+    margin: 10px;
+    padding: 20px;
+    max-width: 20%;
+    background-color: #bababa;
+}
+#nowa_notatka_temat {
+    letter-spacing: 3px;
+    font-size: 20px;
+}
+#nowa_notatka_tresc {
+    font-size: 14px;
+}
+#nowa_notatka_podpis {
+    font-weight: bold;
+    font-size: 16px;
+}
+#nowa_notatka_czas {
+    font-size: 10px;
+    font-style: oblique;
+}
+#nowa_notatka_buttony {
+    display: flex;
+}
+#usun {
+    color: #c40000;
+}
+#przypnij {
+    color: #0077ff;
+}
+#kolory {
+    display: flex;
+}
+#default {
+    background-color: #bababa;
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 5px;
+}
+#czerwony {
+    background-color: #ff6666;
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 5px;
+}
+#zolty {
+    background-color: #ddd019;
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 5px;
+}
+#zielony {
+    background-color: #54ca1d;
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 5px;
 }
