@@ -1,5 +1,5 @@
 
-let tablicaNotatek;
+
 let przyciskWstaw;
 let notatka_pojemnik;
 let notatka_div;
@@ -10,44 +10,45 @@ let notatka;
 let _kolor = "lightgrey";
 
 
-document.addEventListener("DOMContentLoaded", start);
+document.addEventListener('DOMContentLoaded', start);
+let tablicaNotatek = []
 class Notatka {
     constructor(temat, tresc, podpis) {
         this.temat = temat;
         this.tresc = tresc;
         this.podpis = podpis;
         this.czyPrzypieta = false;
-        this.czas = Date.now();
-        this.id = czas.valueOf();
+        this.czas_id = Date.now();
         this.kolor = _kolor;  
     }
 }
 
 function start() {
-    tablicaNotatek = [];
-    notatka_pojemnik = document.getElementById("#tablica");
-    przyciskWstaw = document.getElementById("#wstaw");
-    przyciskWstaw = addEventListener("click", stworzNotatke);
+    notatka_pojemnik = document.getElementById("tablica");
+    przyciskWstaw = document.getElementById("wstaw");
+    przyciskWstaw.addEventListener("click", stworzNotatke);
     Wczytaj();
+    Pokaz();
 }
 function stworzNotatke() {
-    temat = document.getElementById("#temat");
-    tresc = document.getElementById("#tresc");
-    podpis = document.getElementById("#podpis");
+    temat = document.getElementById("temat").value;
+    tresc = document.getElementById("tresc").value;
+    podpis = document.getElementById("podpis").value;
     notatka = new Notatka(temat,tresc,podpis);
     tablicaNotatek.push(notatka);
     Zapisz();
     naTablice(notatka, true);
 }
 function Zapisz() {
-    localStorage.setItem("tablicaNotatek", JSON.stringify(tablicaNotatek));
+    localStorage.setItem("tablica", JSON.stringify(tablicaNotatek));
 }
 function Wczytaj() {
-    tablicaNotatek = JSON.parse(localStorage.getItem('tablicaNotatek'));
+    tablicaNotatek = JSON.parse(localStorage.getItem("tablica")) || []
+    Sortuj();
 }
 function Pokaz() {
-    tablicaNotatek.forEach(element => {
-        naTablice(element);
+    tablicaNotatek.forEach(notatka => {
+        naTablice(notatka);
     });
 }
 function Odswiez() {
@@ -56,28 +57,29 @@ function Odswiez() {
     Pokaz();
 }
 function Przypnij(id) {
-    let tempid;
-    for(i=0; i < tablicaNotatek.Length; i++) {
-        if (id == notatka.id) {
-            tempId = notatka.id;
-        }
+    const tempId = tablicaNotatek.findIndex(notatka => notatka.czas_id == id);
+    tablicaNotatek[tempId].czyPrzypieta = !tablicaNotatek[tempId].czyPrzypieta;
+    /*
+    if (tablicaNotatek[tempId].czyPrzypieta) {
+        document.getElementById(`przypnij_${id}`).style.fontWeight = "bold";
+        document.getElementById(`przypnij_${id}`).style.color = "red";
     }
-    tablicaNotatek[tempid].czyPrzypieta = !tablicaNotatek[tempid].czyPrzypieta;
+    else{
+        document.getElementById(`przypnij_${id}`).style.fontWeight = "normal";
+        document.getElementById(`przypnij_${id}`).style.color = "black";
+    }*/
     Zapisz();
     Odswiez();
     
 }
 function Usun(id) {
-    let tempId;
-    let doWywalenia;
-    for(i=0; i < tablicaNotatek.Length; i++) {
-        if (id == notatka.id) {
-            tempId = notatka.id;
-        }
-    }
+    //przeszukuje tablice w poszukiwaniu id przekazanego jako argument funkcji
+    const tempId = tablicaNotatek.findIndex(notatka => id == notatka.czas_id);
+    //usuwa znaleziony element tablicy (tempId) i tylko ten (1)
     tablicaNotatek.splice(tempId, 1);
-    doWywalenia = document.getElementById("notatka nr " + id);
-    notatka_pojemnik.removechild(doWywalenia);
+    //usunięcie notatki z id=tablica
+    const doWywalenia = document.getElementById(`notatka_nr_${id}`);
+    notatka_pojemnik.removeChild(doWywalenia);
     Zapisz();
 
 }
@@ -86,24 +88,30 @@ function zmienKolor(_kolor) {
     //zm
 }
 function naTablice(notatka, czyPierwsza) {
+    let x;
+    let przypieta;
     if(czyPierwsza == undefined) {
         czyPierwsza = false;
+    }
+    if(notatka.czyPrzypieta) {
+        przypieta = "przypnij";
     }
     
     notatka_div = document.createElement('div');
     notatka_div.classList.add('nowa_notatka');
     notatka_div.classList.add(notatka.kolor);
-    notatka_div.id = 'notatka_nr ' + notatka.id;
+    notatka_div.id = `notatka_nr_${notatka.czas_id}`;
+    x = new Date(notatka.czas_id)
     notatka_div.innerHTML= 
     `
         <div id='nowa_notatka_temat'>${notatka.temat}</div>
         <div id='nowa_notatka_tresc'>${notatka.tresc}</div>
         <div id='nowa_notatka_podpis'>${notatka.podpis}</div>
-        <div id='nowa_notatka_czas'>${notatka.czas.toLocaleDateString()} ${notatka.czas.toLocaleTimeString()}</div>
+        <div id='nowa_notatka_czas'>${x.toLocaleDateString()} ${x.toLocaleTimeString()}</div>
         <div id='nowa_notatka_buttony'>
             <div>
-                <button id="usun">U</button>
-                <button id="przypnij">P</button>
+                <button id="usun_${notatka.czas_id}">U</button>
+                <button id="przypnij_${notatka.czas_id}" class=${przypieta}>P</button>
             </div>
             <div id="kolory">
                 <button id="default" data-numerNot="${notatka_div.id}" data-kolor="lightgrey"></button>
@@ -118,17 +126,17 @@ function naTablice(notatka, czyPierwsza) {
     }
     else{
         //let pierwszyNaTablicy = tablica[0].id;
-        let pierwszaNotatka = document.getElementById(`${'notatka_nr ' + tablicaNotatek[0].id}`);
+        let pierwszaNotatka = document.getElementById(`${'notatka_nr_' + tablicaNotatek[0].id}`);
         notatka_pojemnik.insertBefore(notatka_div, pierwszaNotatka);
         Sortuj();
     }
-    document.getElementById("usun").addEventListener('click', function() { return Usun(notatka.id)});
-    
+    document.getElementById(`usun_${notatka.czas_id}`).addEventListener('click', function() { return Usun(notatka.czas_id)});
+    document.getElementById(`przypnij_${notatka.czas_id}`).addEventListener('click', function(e) {return Przypnij(notatka.czas_id)})
     
 }
 function Sortuj() {
     tablicaNotatek.sort(function(not1, not2) {
-        return not2.czas - not1.czas;
+        return not2.czas_id - not1.czas_id;
     });
     tablicaNotatek.sort(function(not1, not2) {
         if(not1.czyPrzypieta == true && not2.czyPrzypieta == true) {

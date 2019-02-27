@@ -59,11 +59,9 @@ body {
 #nowa_notatka_buttony {
     display: flex;
 }
-#usun {
-    color: #c40000;
-}
-#przypnij {
-    color: #0077ff;
+.przypnij {
+    color: #ffffff;
+    background-color: #000000
 }
 #kolory {
     display: flex;
