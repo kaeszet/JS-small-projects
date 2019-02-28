@@ -29,6 +29,7 @@ function start() {
     Wczytaj();
     Pokaz();
 }
+// tworzy instancję klasy Notatka, wprowadza wartości do właściwości, dodaje notatkę do tablicy i do diva
 function stworzNotatke() {
     temat = document.getElementById("temat").value;
     tresc = document.getElementById("tresc").value;
@@ -38,13 +39,16 @@ function stworzNotatke() {
     Zapisz();
     naTablice(notatka, true);
 }
+//zapisuje tablicę w localstorage string w formacie JSON
 function Zapisz() {
     localStorage.setItem("tablica", JSON.stringify(tablicaNotatek));
 }
+//tworzy obiekt tablicaNotatek poprzez sparsowanie pliku w formacie JSON
 function Wczytaj() {
     tablicaNotatek = JSON.parse(localStorage.getItem("tablica")) || []
     Sortuj();
 }
+//wrzuca tablicę notatek do diva
 function Pokaz() {
     tablicaNotatek.forEach(notatka => {
         naTablice(notatka);
@@ -55,22 +59,16 @@ function Odswiez() {
     notatka_pojemnik.innerHTML = '';
     Pokaz();
 }
+//przypinanie notatki
 function Przypnij(id) {
     const tempId = tablicaNotatek.findIndex(notatka => notatka.czas_id == id);
     tablicaNotatek[tempId].czyPrzypieta = !tablicaNotatek[tempId].czyPrzypieta;
-    /*
-    if (tablicaNotatek[tempId].czyPrzypieta) {
-        document.getElementById(`przypnij_${id}`).style.fontWeight = "bold";
-        document.getElementById(`przypnij_${id}`).style.color = "red";
-    }
-    else{
-        document.getElementById(`przypnij_${id}`).style.fontWeight = "normal";
-        document.getElementById(`przypnij_${id}`).style.color = "black";
-    }*/
+   
     Zapisz();
     Odswiez();
     
 }
+//usuwanie notatki z tablicy i z diva
 function Usun(id) {
     //przeszukuje tablice w poszukiwaniu id przekazanego jako argument funkcji
     const tempId = tablicaNotatek.findIndex(notatka => id == notatka.czas_id);
@@ -82,6 +80,7 @@ function Usun(id) {
     Zapisz();
 
 }
+//zmiana koloru przez dodanie klasy
 function zmienKolor(kolor, id) {
     //document.getElementById(`notatka_nr_${id}`).getElementById(`${kolor}`);
     document.querySelector(`#${id}`).className = `nowa_notatka ${kolor}`;
@@ -90,6 +89,7 @@ function zmienKolor(kolor, id) {
     //notatka.kolor = _kolor;
     //zm
 }
+//obsługuje wyświetlanie tablicy notatek w divie oraz wywołanie funkcji przypisanych do buttonów
 function naTablice(notatka, czyPierwsza) {
     let x;
     let przypieta;
@@ -143,6 +143,7 @@ function naTablice(notatka, czyPierwsza) {
         });
     });
 }
+//sortowanie, najwyżej przypięte notatki, później nieprzypięte w kolejności od najpóźniejszego czasu do najwcześniejszego
 function Sortuj() {
     tablicaNotatek.sort(function(not1, not2) {
         return not2.czas_id - not1.czas_id;
