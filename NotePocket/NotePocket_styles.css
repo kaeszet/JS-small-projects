@@ -94,3 +94,15 @@ body {
     height: 12px;
     margin: 5px;
 }
+.default {
+    background-color: #bababa;
+}
+.czerwony {
+    background-color: #ff6666;
+}
+.zolty {
+    background-color: #ddd019;
+}
+.zielony {
+    background-color: #54ca1d;
+}

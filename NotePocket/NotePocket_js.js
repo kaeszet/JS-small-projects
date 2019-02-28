@@ -9,7 +9,7 @@ let podpis;
 let notatka;
 let _kolor = "lightgrey";
 
-
+// po załadowaniu DOM zostaje uruchomiona funkcja start
 document.addEventListener('DOMContentLoaded', start);
 let tablicaNotatek = []
 class Notatka {
@@ -25,8 +25,7 @@ class Notatka {
 
 function start() {
     notatka_pojemnik = document.getElementById("tablica");
-    przyciskWstaw = document.getElementById("wstaw");
-    przyciskWstaw.addEventListener("click", stworzNotatke);
+    document.getElementById("wstaw").addEventListener("click", stworzNotatke);
     Wczytaj();
     Pokaz();
 }
@@ -83,7 +82,11 @@ function Usun(id) {
     Zapisz();
 
 }
-function zmienKolor(_kolor) {
+function zmienKolor(kolor, id) {
+    //document.getElementById(`notatka_nr_${id}`).getElementById(`${kolor}`);
+    document.querySelector(`#${id}`).className = `nowa_notatka ${kolor}`;
+    tablicaNotatek.find(notatka => id == `notatka_nr_${notatka.czas_id}`).kolor = kolor;
+    Zapisz();
     //notatka.kolor = _kolor;
     //zm
 }
@@ -114,10 +117,10 @@ function naTablice(notatka, czyPierwsza) {
                 <button id="przypnij_${notatka.czas_id}" class=${przypieta}>P</button>
             </div>
             <div id="kolory">
-                <button id="default" data-numerNot="${notatka_div.id}" data-kolor="lightgrey"></button>
-                <button id="czerwony" data-numerNot="${notatka_div.id}" data-kolor="red"></button>
-                <button id="zolty" data-numerNot="${notatka_div.id}" data-kolor="yellow"></button>
-                <button id="zielony" data-numerNot="${notatka_div.id}" data-kolor="green"></button>
+                <button id="default" data-numerNot="${notatka_div.id}" data-kolor="default"></button>
+                <button id="czerwony" data-numerNot="${notatka_div.id}" data-kolor="czerwony"></button>
+                <button id="zolty" data-numerNot="${notatka_div.id}" data-kolor="zolty"></button>
+                <button id="zielony" data-numerNot="${notatka_div.id}" data-kolor="zielony"></button>
             </div>
         </div>
     `
@@ -132,7 +135,13 @@ function naTablice(notatka, czyPierwsza) {
     }
     document.getElementById(`usun_${notatka.czas_id}`).addEventListener('click', function() { return Usun(notatka.czas_id)});
     document.getElementById(`przypnij_${notatka.czas_id}`).addEventListener('click', function(e) {return Przypnij(notatka.czas_id)})
-    
+    document.querySelectorAll("#default, #czerwony, #zolty, #zielony").forEach(id => {
+        id.addEventListener('click', (e) => {
+            const kolor = e.target.dataset.kolor;
+            const id = e.target.dataset.numernot;
+            zmienKolor(kolor, id);
+        });
+    });
 }
 function Sortuj() {
     tablicaNotatek.sort(function(not1, not2) {
