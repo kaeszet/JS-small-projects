@@ -26,6 +26,11 @@ class Notatka {
 function start() {
     notatka_pojemnik = document.getElementById("tablica");
     document.getElementById("wstaw").addEventListener("click", stworzNotatke);
+    document.addEventListener("keyup", (e) => {
+        if (e.keyCode === 13) {
+            stworzNotatke();
+        }
+    }); 
     Wczytaj();
     Pokaz();
 }
