@@ -16,9 +16,9 @@ let isRecording = false
 let recStart = 0
 
 function appStart() {
-    window.addEventListener('keypress', playSound)
-    document.querySelector('#play').addEventListener('click', playMusic)
-    document.querySelector('#rec').addEventListener('click', recMusic)
+    window.addEventListener('keypress', playSound);
+    document.querySelector('#play').addEventListener('click', playMusic);
+    document.querySelector('#rec').addEventListener('click', recMusic);
 
 }
 function playMusic(){
@@ -29,7 +29,7 @@ function playMusic(){
         //otwórz dźwięk
         //let audio = new Audio()
         audioDOM.currentTime = 0
-        audioDOM.play() 
+        audioDOM.play();
     } 
         , sound.time 
     )
@@ -44,16 +44,18 @@ function recMusic(e) {
     e.target.innerHTML = isRecording ? 'Zakończ' : 'Nagrywaj'
 }
 function playSound(e) {
-    const key = document.querySelector(`.klawisz[data-keyboard="${e.keyCode}"]`)
-    key.classList.add('graj');
+    
+    
     //pobierz kod znaku
     audioName = sounds[e.charCode]
     //pobierz kod audio z DOM
-    audioDOM = document.querySelector(`#${audioName}`)
+    audioDOM = document.getElementById(`${audioName}`);
+    const key = document.querySelector(`#${audioName}.klawisz`);
+    key.classList.add('graj');
     //otwórz dźwięk
     //let audio = new Audio()
     audioDOM.currentTime = 0
-    audioDOM.play()
+    audioDOM.play();
     function usunZmiane(e) {
         if (e.propertyName !== 'transform') {
             return;
@@ -72,6 +74,6 @@ function playSound(e) {
             }
         )
     }
-    klawisze.forEach(function (klawisz) { klawisz.addEventListener('transitionend', usunZmiane) });
+    //klawisze.forEach(function (klawisz) { klawisz.addEventListener('transitionend', usunZmiane) });
   
 } 
