@@ -44,6 +44,8 @@ function recMusic(e) {
     e.target.innerHTML = isRecording ? 'Zakończ' : 'Nagrywaj'
 }
 function playSound(e) {
+    const key = document.querySelector(`.klawisz[data-keyboard="${e.keyCode}"]`)
+    key.classList.add('graj');
     //pobierz kod znaku
     audioName = sounds[e.charCode]
     //pobierz kod audio z DOM
@@ -52,6 +54,15 @@ function playSound(e) {
     //let audio = new Audio()
     audioDOM.currentTime = 0
     audioDOM.play()
+    function usunZmiane(e) {
+        if (e.propertyName !== 'transform') {
+            return;
+        }
+        else {
+            console.log(this)
+            this.classList.remove('graj');
+        }
+    }
     //zapisywanie do ścieżki 1
     if (isRecording) {
         channel1.push(
@@ -61,6 +72,6 @@ function playSound(e) {
             }
         )
     }
-
+    klawisze.forEach(function (klawisz) { klawisz.addEventListener('transitionend', usunZmiane) });
   
 } 

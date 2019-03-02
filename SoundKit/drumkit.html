@@ -5,14 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Drumkit</title>
+    <link rel="stylesheet" type="text/css" href="drumkit_css.css" />
     <script src="Drumkit.js"></script>
 </head>
 <body>
     <!--buttion#rec{Nagrywaj}-->
     <button id="rec">Nagrywaj</button>
     <button id="play">Odtwarzaj</button>
-    
-    <audio src="sounds/clap.wav" controls id="clap"></audio>
+    <div class="pojemnik">
+        <div data-keyboard="90" class="klawisz">
+            <kbd>z</kbd>
+        </div>
+        <div data-keyboard="88" class="klawisz">
+            <kbd>x</kbd>
+        </div>
+        <div data-keyboard="67" class="klawisz">
+            <kbd>c</kbd>
+        </div>
+        <div data-keyboard="86" class="klawisz">
+            <kbd>v</kbd>
+        </div>
+        <div data-keyboard="66" class="klawisz">
+            <kbd>b</kbd>
+        </div>
+        <div data-keyboard="78" class="klawisz">
+            <kbd>n</kbd>
+        </div>
+        <div data-keyboard="77" class="klawisz">
+            <kbd>m</kbd>
+        </div>
+    </div>
+    <audio src="sounds/clap.wav" controls id="clap" class="klawisz"></audio>
     <audio src="sounds/boom.wav" controls id="boom"></audio>
     <audio src="sounds/hihat.wav" controls id="hihat"></audio>
     <audio src="sounds/kick.wav" controls id="kick"></audio>
