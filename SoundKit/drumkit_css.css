@@ -24,6 +24,9 @@ button{
     margin: 5px;
     
 }
+button:focus {
+    outline: 0;
+}
 #rec, #play{
     transition-duration: 0.4s;
 }

@@ -1,5 +1,5 @@
 document.addEventListener ('DOMContentLoaded', appStart);
-
+//dictionary z id nagrań
 const sounds = {
   97: 'clap',
   115: 'boom',
@@ -22,7 +22,7 @@ let channel4_IsChecked = false;
 let rec_stop_button = '';
 let isRecording = false;
 let recStart = 0;
-
+//punkt starowy aplikacji po załadowaniu struktury DOM
 function appStart () {
     rec_stop_button = document.querySelector ('#rec');
   window.addEventListener ('keypress', playSound);
@@ -33,6 +33,7 @@ function appStart () {
     ch_st[i].addEventListener ('click', checkbox_status);
   }
 }
+//po kliknięciu zmienia stan każdego kanału
 function checkbox_status () {
   channel1_IsChecked = document.kanaly.querySelector ('input[name="kanal1"]')
     .checked;
@@ -43,6 +44,7 @@ function checkbox_status () {
   channel4_IsChecked = document.kanaly.querySelector ('input[name="kanal4"]')
     .checked;
 }
+//uruchamia nagraną sekwencję
 function playMusic () {
     if(channel1_IsChecked) {
         channel1.forEach (sound => {
@@ -89,13 +91,13 @@ function playMusic () {
       });
     }
   }
-  
+//nagrywanie muzyki 
 function recMusic (e) {
   //zap czas-start
   recStart = Date.now ();
   //zmień tryb nagrywania w odtwarzanie
   isRecording = !isRecording;
-  //zauktualizuj nnapis na buttonie
+  //zaktualizuj napis na buttonie
   if(isRecording) {
     rec_stop_button.innerHTML = '<i class="icon-stop"></i>';
   }
@@ -129,6 +131,7 @@ function playSound (e) {
         });
       }
   }
+  //zapisywanie do ścieżki 2
  if(channel2_IsChecked) {
     if (isRecording) {
         channel2.push ({
@@ -137,6 +140,7 @@ function playSound (e) {
         });
       }
  }
+ //zapisywanie do ścieżki 3
   if(channel3_IsChecked) {
     if (isRecording) {
         channel3.push ({
@@ -145,6 +149,7 @@ function playSound (e) {
         });
       }
   }
+  //zapisywanie do ścieżki 4
   if(channel4_IsChecked) {
     if (isRecording) {
         channel4.push ({
@@ -153,7 +158,7 @@ function playSound (e) {
         });
       }
   }
-  
+  //usuwa klasę graj (transform)
   function deleteTransform (e) {
     if (e.propertyName !== 'transform') {
       return;
