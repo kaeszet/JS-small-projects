@@ -1,3 +1,28 @@
 body{
     background-color: #696969;
 }
+.containter {
+    height: 100%;
+}
+.mapy {
+    height: 70%;
+    width: 90%;
+}
+.wiadomosci{
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+}
+.okno_wiadomosci{
+    overflow: scroll;
+    background-color: #ffffff;
+}
+.okno_czat{
+    display: flex;
+}
+#wpisz_tekst{
+    margin: 5px;
+}
+#wyslij {
+    margin: 5px;
+}
