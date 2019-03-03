@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2019 by original authors @ fontello.com</metadata>
+<defs>
+<font id="fontello" horiz-adv-x="1000" >
+<font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="play" unicode="&#xe800;" d="M486 376q14-10 14-26 0-14-14-24l-428-266q-24-16-41-6t-17 40l0 514q0 30 17 40t41-6z" horiz-adv-x="500" />
+
+<glyph glyph-name="stop" unicode="&#xe801;" d="M526 650q74 0 74-64l0-470q0-66-74-66l-450 0q-76 0-76 66l0 470q0 36 18 50t58 14l450 0z" horiz-adv-x="600" />
+
+<glyph glyph-name="pause" unicode="&#xe802;" d="M440 700q90 0 90-64l0-570q0-66-90-66t-90 66l0 570q0 64 90 64z m-350 0q90 0 90-64l0-570q0-66-90-66t-90 66l0 570q0 64 90 64z" horiz-adv-x="530" />
+
+<glyph glyph-name="record" unicode="&#xe803;" d="M350 700q146 0 248-102t102-248q0-144-102-247t-248-103-248 103-102 247q0 146 102 248t248 102z" horiz-adv-x="700" />
+</font>
+</defs>
+</svg>

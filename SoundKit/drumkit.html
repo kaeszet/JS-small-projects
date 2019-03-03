@@ -1,55 +1,72 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Drumkit</title>
     <link rel="stylesheet" type="text/css" href="drumkit_css.css" />
+    <link rel="stylesheet" type="text/css" href="fontello/css/fontello.css" />
     <script src="Drumkit.js"></script>
 </head>
+
 <body>
     <!--buttion#rec{Nagrywaj}-->
-    <button id="rec">Nagrywaj</button>
-    <button id="play">Odtwarzaj</button>
+    <div class="pojemnik2">
+        <button id="rec" class="klawisz"><i class="icon-record"></i></button>
+        <button id="play" class="klawisz"><i class="icon-play"></i></button>
+        <form name="kanaly">
+            <input type="checkbox" id="k" name="kanal1" checked> Kanał 1<br>
+            <input type="checkbox" id="k" name="kanal2"> Kanał 2<br>
+            <input type="checkbox" id="k" name="kanal3"> Kanał 3<br>
+            <input type="checkbox" id="k" name="kanal4"> Kanał 4<br>
+        </form>
+    </div>
     <div class="pojemnik">
-        <div controls id="clap" class="klawisz">
+
+
+        <div id="clap_key" class="klawisz">
             <kbd>a</kbd>
         </div>
-        <div controls id="boom" class="klawisz">
+        <div id="boom_key" class="klawisz">
             <kbd>s</kbd>
         </div>
-        <div controls id="hihat" class="klawisz">
+        <div id="hihat_key" class="klawisz">
             <kbd>d</kbd>
         </div>
-        <div controls id="kick" class="klawisz">
+        <div id="kick_key" class="klawisz">
             <kbd>f</kbd>
         </div>
-        <div controls id="openhat" class="klawisz">
+        <div id="openhat_key" class="klawisz">
             <kbd>g</kbd>
         </div>
-        <div controls id="ride" class="klawisz">
+        <div id="ride_key" class="klawisz">
             <kbd>h</kbd>
         </div>
-        <div controls id="snare" class="klawisz">
+        <div id="snare_key" class="klawisz">
             <kbd>j</kbd>
         </div>
-        <div controls id="tink" class="klawisz">
+        <div id="tink_key" class="klawisz">
             <kbd>k</kbd>
         </div>
-        <div controls id="tom" class="klawisz">
+        <div id="tom_key" class="klawisz">
             <kbd>l</kbd>
         </div>
     </div>
-    <audio src="sounds/clap.wav" controls id="clap"></audio>
-    <audio src="sounds/boom.wav" controls id="boom"></audio>
-    <audio src="sounds/hihat.wav" controls id="hihat"></audio>
-    <audio src="sounds/kick.wav" controls id="kick"></audio>
-    <audio src="sounds/openhat.wav" controls id="openhat"></audio>
-    <audio src="sounds/ride.wav" controls id="ride"></audio>
-    <audio src="sounds/snare.wav" controls id="snare"></audio>
-    <audio src="sounds/tink.wav" controls id="tink"></audio>
-    <audio src="sounds/tom.wav" controls id="tom"></audio> <br>
+    <div>
+        <audio src="sounds/clap.wav" controls id="clap" style="visibility: hidden;"></audio>
+        <audio src="sounds/boom.wav" controls id="boom" style="visibility: hidden;"></audio>
+        <audio src="sounds/hihat.wav" controls id="hihat" style="visibility: hidden;"></audio>
+        <audio src="sounds/kick.wav" controls id="kick" style="visibility: hidden;"></audio>
+        <audio src="sounds/openhat.wav" controls id="openhat" style="visibility: hidden;"></audio>
+        <audio src="sounds/ride.wav" controls id="ride" style="visibility: hidden;"></audio>
+        <audio src="sounds/snare.wav" controls id="snare" style="visibility: hidden;"></audio>
+        <audio src="sounds/tink.wav" controls id="tink" style="visibility: hidden;"></audio>
+        <audio src="sounds/tom.wav" controls id="tom" style="visibility: hidden;"></audio>
+    </div>
+
 
 </body>
+
 </html>

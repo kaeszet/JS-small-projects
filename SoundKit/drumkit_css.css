@@ -1,14 +1,42 @@
 body
 {
-    background-color: black
+    background-color: #757575;
+    background-image: url(img/drums.png)
 }
 .pojemnik {
     display: flex;
     flex: 1;
-    min-height: 100vh;
+    flex-wrap: wrap;
+    min-height: 30vh;
     align-items: center;
-    background-color: grey;
     justify-content: center;
+}
+.pojemnik2 {
+    margin-top: 10%;
+    display: flex;
+    min-height: 30vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    
+}
+button{
+    margin: 5px;
+    
+}
+#rec, #play{
+    transition-duration: 0.4s;
+}
+#rec:hover{
+    background-color: #ff2a1b;
+    color: white;
+}
+#play:hover{
+    background-color: #00c3ff;
+    color: white;
+}
+form {
+    color: #ffffff;
 }
 .klawisz {
     background-color: #f1f1f1;
@@ -17,12 +45,12 @@ body
     text-align: center;
     line-height: 75px;
     font-size: 30px;
-    border: 1px solid dimgrey;
+    border: 1px solid #696969;
     border-radius: .5rem;
     transition: all .07s ease;
 }
 .graj {
     font-size: 60px;
     transform: scale(1.2);
-    box-shadow: 0 0 1rem black;
+    box-shadow: 0 0 1rem #000000;
 }
