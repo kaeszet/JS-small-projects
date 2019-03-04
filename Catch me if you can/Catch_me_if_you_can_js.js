@@ -1,5 +1,7 @@
 /*jshint esversion: 6 */
-let lokalizacja_start, mapa, marker;
+let lokalizacja_start; 
+let mapa; 
+let marker;
 let websocket;
 let gracze = {};
 let nick = 'Dolan';
