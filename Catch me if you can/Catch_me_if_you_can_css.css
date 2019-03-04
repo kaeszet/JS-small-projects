@@ -2,27 +2,31 @@ body{
     background-color: #696969;
 }
 .containter {
-    height: 100%;
+    height: max-content;
 }
-.mapy {
-    height: 70%;
-    width: 90%;
+#mapa {
+    height: 550px;
+    width: 100%;
 }
 .wiadomosci{
-    height: 30%;
+    height: 300px;
     display: flex;
     flex-direction: column;
 }
 .okno_wiadomosci{
-    overflow: scroll;
+    overflow: auto;
+    min-height: 200px;
     background-color: #ffffff;
+    margin-top: 5px;
 }
 .okno_czat{
     display: flex;
 }
 #wpisz_tekst{
-    margin: 5px;
+    width: 100%;
+    margin-top: 5px;
+    margin-right: 5px;
 }
 #wyslij {
-    margin: 5px;
+    margin-top: 5px;
 }
