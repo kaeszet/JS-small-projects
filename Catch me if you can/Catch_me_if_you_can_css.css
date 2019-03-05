@@ -1,5 +1,8 @@
+html {
+    font-family: 'Quicksand', sans-serif;
+}
 body{
-    background-color: #696969;
+    background-color: #969696;
 }
 .containter {
     height: max-content;
@@ -18,15 +21,30 @@ body{
     min-height: 200px;
     background-color: #ffffff;
     margin-top: 5px;
+    font-family: 'Quicksand', sans-serif;
 }
 .okno_czat{
     display: flex;
+    min-height: 40px;
 }
 #wpisz_tekst{
     width: 100%;
     margin-top: 5px;
     margin-right: 5px;
+    
+    font-family: 'Quicksand', sans-serif;
 }
-#wyslij {
+#wyslij, #button_ok {
     margin-top: 5px;
+    font-family: 'Quicksand', sans-serif;
+}
+.schowaj{
+    visibility: hidden;
+    height: 0px;
+}
+#info {
+    margin-top: 5px;
+}
+.nowa_wiadomosc {
+    
 }
