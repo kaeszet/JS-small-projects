@@ -4,7 +4,7 @@ let mapa;
 let marker;
 let websocket;
 let gracze = {};
-let nick = 'Dolan';
+let nick = '1';
 let avek = "https://i.ibb.co/njBQ793/dolan-30-30.png";
 document.addEventListener('DOMContentLoaded', start);
 function initMap(){
@@ -21,7 +21,7 @@ function initMap(){
         animation: google.maps.Animation.DROP,
         icon: avek,
         title: "Dolan!"
-        
+       
     });
     pobierzLokalizacje();
     UruchomWebSocket();
@@ -65,7 +65,7 @@ function poruszMarkerem(e){
     websocket.send(JSON.stringify(websocket_data));
 }
 function UruchomWebSocket() {
-    let url = 'ws://91.121.6.192:8010';
+    let url = 'ws://77.55.222.58:443';
     websocket = new WebSocket(url);
     websocket.addEventListener('open', WebSocket_OPEN);
     websocket.addEventListener('message', WebSocket_MESSAGE);
@@ -75,24 +75,36 @@ function WebSocket_OPEN(data) {
 }
 function WebSocket_MESSAGE(e) {
     let data = JSON.parse(e.data);
-    if(gracze['user' + data.id] == false) {
+    //let data = JSON.parse(data_2);
+    if(!gracze['user' + data.id]) {
         gracze['user' + data.id] = new google.maps.Marker({
             position: { lat: data.lat, lng: data.lng },
             map: mapa,
             animation: google.maps.Animation.DROP,
+            icon: avek
             
         });
     }
     else {
-        players['user' + data.id].setPosition({
+        gracze['user' + data.id].setPosition({
             lat: data.lat,
             lng: data.lng
         });
     }
-    if(data.includes("msg")) {
+    let msg_ws = JSON.stringify(e.data);
+    if(msg_ws.includes("msg")) {
         //utw div
+        let msg = JSON.parse(e.data);
+        let json_nick = msg["nick"];
+        let json_msg = msg["msg"];
+        let oknoWiadomosci = document.querySelector('.okno_wiadomosci');
         //uzup div nowa_wiadomosc
+        let nowaWiadomosc = document.createElement('div');
+        nowaWiadomosc.classList.add('nowa_wiadomosc');
+        nowaWiadomosc.innerHTML = `<b>${json_nick}</b>: ${json_msg}`;
         //dod do okna
+        oknoWiadomosci.appendChild(nowaWiadomosc);
+        oknoWiadomosci.scrollTop = oknoWiadomosci.scrollHeight;
     }
 }
 function loc_Zezwalaj(data) {
