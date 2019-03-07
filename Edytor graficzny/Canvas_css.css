@@ -13,15 +13,15 @@ body {
 #container {
     
     padding: 20px;
-    border: 1px solid black;
+    
 }
 .header {
     padding: 20px;
     text-align: center;
-    border: 1px solid black;
+    
 }
 .top {
-    border: 1px solid black;
+    
     display: inline-block;
     width: 100%;
     padding-left: 40%;
@@ -33,7 +33,7 @@ body {
 }
 .column.middle {
     width: 50%;
-    border: 1px solid black;
+    
 }
 #canva {
     display: block;
@@ -41,7 +41,7 @@ body {
 }
 .column.side {
     width: 25%;
-    border: 1px solid black;
+    
 }
 .container-inside:after {
     content: "";
