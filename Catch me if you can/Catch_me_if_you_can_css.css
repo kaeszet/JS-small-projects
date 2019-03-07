@@ -42,12 +42,16 @@ body{
     visibility: hidden;
     height: 0px;
 }
-#info {
+#info, #status_polaczenia, #status_lokalizacji {
     margin-top: 5px;
+    margin-bottom: 0px;
 }
 .nowa_wiadomosc {
     background: #ffffff;
     color: #000000;
     margin: 5px;
     border-bottom: 1px solid #999999;
+}
+#status_polaczenia, #status_lokalizacji {
+    color: yellow;
 }
