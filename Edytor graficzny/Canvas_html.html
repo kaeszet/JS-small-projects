@@ -41,7 +41,7 @@
                     type="range" min="0" max="100" value="0"> <br>
                 <span><b>Rotacja odcieni:</b> <span id="span7"></span></span><input oninput="huerotateRange()" class="suwak" id="huerotateran"
                     type="range" min="0" max="360" value="0"> <br>
-                <span><b>Przezroczystość:</b> <span id="span8"></span></span><input oninput="opacityRange()" class="suwak" id="opacityran"
+                <span><b>Nieprzezroczystość:</b> <span id="span8"></span></span><input oninput="opacityRange()" class="suwak" id="opacityran"
                     type="range" min="-100" max="100" value="0"> <br>    
             </div>
             <div class="column middle">
@@ -89,7 +89,7 @@
         function save() {
             ctx.save();
         }
-        function retore() {
+        function restore() {
             ctx.restore();
         }
         
