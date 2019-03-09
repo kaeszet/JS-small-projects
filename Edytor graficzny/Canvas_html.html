@@ -22,11 +22,6 @@
             <label for="testfile" class="guzik-top"> Wybierz plik
             </label>
             <input id="testfile" type="file"/>
-
-
-            
-
-
             <!-- Ładowanie pliku do Canvas -->
             <button class="guzik-top" onclick="draw()">Załaduj do Canvas</button>
         </div>
@@ -53,11 +48,19 @@
                 <canvas width="256" height="256" id="canva" style="border: 1px solid #000000;"></canvas>
             </div>
             <div class="column side">
-                <button onclick="greyScale()">Szarość</button> <br>
+                <button onclick="greyScale()" class="guzik-top">Szarość</button>
+                <button onclick="negative()" class="guzik-top">Odwrócenie kolorów</button>
+                <button onclick="sepia()" class="guzik-top">Sepia</button>
+                <button onclick="" class="guzik-top">Szarość</button>
+                <button onclick="" class="guzik-top">Szarość</button>
+                <button onclick="" class="guzik-top">Szarość</button>
+                <button onclick="" class="guzik-top">Szarość</button>
+                <button onclick="" class="guzik-top">Szarość</button>
+
             </div>
         </div>
-        <div id="footer">
-            <button onclick="ctx.save()">Zapisz</button>
+        <div>
+            <button onclick="ctx.save()" class="guzik-top">Zapisz</button>
         </div>
     </div>
     <!-- Ładowanie pliku z komputera na stronę (plik musi być w tym samym folderze, co index) -->
@@ -110,6 +113,33 @@
             }
             ctx.putImageData(imageData, 0, 0)
 
+        }
+        function negative() {
+            var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
+            var data = imageData.data
+            for (var i = 0; i < data.length; i += 4) { 
+                // red
+                data[i] = 255 - data[i];
+                // green
+                data[i + 1] = 255 - data[i+1];
+                // blue
+                data[i + 2] = 255 - data[i+2];
+            }
+            ctx.putImageData(imageData, 0, 0)
+        }
+        function sepia() {
+            var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
+            var data = imageData.data
+            for (var i = 0; i < data.length; i += 4) { 
+                var sepia = 0.3 * data[i] + 0.59 * data[i+1] + 0.11 * data[i+2];
+                // red
+                data[i] = sepia + 100;
+                // green
+                data[i + 1] = sepia + 50;
+                // blue
+                data[i + 2] = sepia;
+            }
+            ctx.putImageData(imageData, 0, 0)
         }
         //TODO zrobić więcej suwaków dla ctx.filter (https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter)
         function grayScaleRange() {
