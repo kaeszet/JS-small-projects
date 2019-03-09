@@ -27,21 +27,19 @@
         </div>
         <div class="container-inside">
             <div class="column side">
-                <span>Skala szarości: <span id="span1"></span></span><input class="suwak"
+                <span><b>Skala szarości:</b> <span id="span1"></span></span><input class="suwak"
                     id="grayscaleran" type="range" min="0" max="100" value="0"> <br>
-                <span>Jasność: <span id="span2"></span></span><input class="suwak" id="brightnessran"
+                <span><b>Jasność:</b> <span id="span2"></span></span><input class="suwak" id="brightnessran"
                     type="range" min="-100" max="100" value="0"> <br>
-                <span>Kontrast: <span id="span3"></span></span><input oninput="contrastRange()" class="suwak" id="contrastran"
+                <span><b>Kontrast:</b> <span id="span3"></span></span><input oninput="contrastRange()" class="suwak" id="contrastran"
                     type="range" min="0" max="300" value="100"> <br>
-                <span>Odwrócenie kolorów: <span id="span4"></span></span><input oninput="invertRange()" class="suwak" id="invertran"
-                    type="range" min="0" max="100" value="0">
-                <br>
-                <span>Saturacja: <span id="span5"></span></span><input oninput="saturateRange()" class="suwak" id="saturateran"
+                <span><b>Odwrócenie kolorów:</b> <span id="span4"></span></span><input oninput="invertRange()" class="suwak" id="invertran"
                     type="range" min="0" max="100" value="0"> <br>
-                <span>Sepia: <span id="span6"></span></span><input oninput="sepiaRange()" class="suwak" id="sepiaran"
-                    type="range" min="0" max="100" value="0">
-                <br>
-                <span>Rotacja odcieni: <span id="span7"></span></span><input oninput="huerotateRange()" class="suwak" id="huerotateran"
+                <span><b>Saturacja:</b> <span id="span5"></span></span><input oninput="saturateRange()" class="suwak" id="saturateran"
+                    type="range" min="0" max="100" value="0"> <br>
+                <span><b>Sepia:</b> <span id="span6"></span></span><input oninput="sepiaRange()" class="suwak" id="sepiaran"
+                    type="range" min="0" max="100" value="0"> <br>
+                <span><b>Rotacja odcieni:</b> <span id="span7"></span></span><input oninput="huerotateRange()" class="suwak" id="huerotateran"
                     type="range" min="0" max="360" value="0"> <br>
             </div>
             <div class="column middle">
@@ -51,16 +49,10 @@
                 <button onclick="greyScale()" class="guzik-top">Szarość</button>
                 <button onclick="negative()" class="guzik-top">Odwrócenie kolorów</button>
                 <button onclick="sepia()" class="guzik-top">Sepia</button>
-                <button onclick="" class="guzik-top">Szarość</button>
-                <button onclick="" class="guzik-top">Szarość</button>
-                <button onclick="" class="guzik-top">Szarość</button>
-                <button onclick="" class="guzik-top">Szarość</button>
-                <button onclick="" class="guzik-top">Szarość</button>
+                <button onclick="save()" class="guzik-save">Zapisz</button>
+                <button onclick="restore()" class="guzik-restore">Wczytaj</button>
 
             </div>
-        </div>
-        <div>
-            <button onclick="ctx.save()" class="guzik-top">Zapisz</button>
         </div>
     </div>
     <!-- Ładowanie pliku z komputera na stronę (plik musi być w tym samym folderze, co index) -->
@@ -94,6 +86,9 @@
         }
         function save() {
             ctx.save();
+        }
+        function retore() {
+            ctx.restore();
         }
         
 
