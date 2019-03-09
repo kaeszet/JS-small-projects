@@ -41,6 +41,8 @@
                     type="range" min="0" max="100" value="0"> <br>
                 <span><b>Rotacja odcieni:</b> <span id="span7"></span></span><input oninput="huerotateRange()" class="suwak" id="huerotateran"
                     type="range" min="0" max="360" value="0"> <br>
+                <span><b>Przezroczystość:</b> <span id="span8"></span></span><input oninput="opacityRange()" class="suwak" id="opacityran"
+                    type="range" min="-100" max="100" value="0"> <br>    
             </div>
             <div class="column middle">
                 <canvas width="256" height="256" id="canva" style="border: 1px solid #000000;"></canvas>
@@ -151,7 +153,9 @@
 
             });
             function setGrayScale(value) {
-                ctx.filter = `grayscale(${value}%)`;
+                //ctx.filter = `grayscale(${value}%)`;
+                //let test = ctxFilterData();
+                ctx.filter = ctxFilterData();
                 ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0)
 
@@ -176,7 +180,9 @@
             //nazwa funkcji
             function setBrightness(value) {
                 //nazwa filtra, wartości, skala
-                ctx.filter = `brightness(${value + 100}%)`;
+                //ctx.filter = `brightness(${value + 100}%)`;
+                ctx.filter = ctxFilterData();
+                ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0)
             }
 
@@ -198,7 +204,8 @@
             //nazwa funkcji
             function setContrast(value) {
                 //nazwa filtra, wartości, skala
-                ctx.filter = `contrast(${value}%)`;
+                ctx.filter = ctxFilterData();
+                ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0)
             }
 
@@ -221,7 +228,8 @@
             //nazwa funkcji
             function setInvert(value) {
                 //nazwa filtra, wartości, skala
-                ctx.filter = `invert(${value}%)`;
+                ctx.filter = ctxFilterData();
+                ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0)
             }
 
@@ -243,7 +251,8 @@
             //nazwa funkcji
             function setOpacity(value) {
                 //nazwa filtra, wartości, skala
-                ctx.filter = `opacity(${value}%)`;
+                ctx.filter = ctxFilterData();
+                ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0)
             }
 
@@ -265,7 +274,8 @@
             //nazwa funkcji
             function setSaturate(value) {
                 //nazwa filtra, wartości, skala
-                ctx.filter = `saturate(${value+100-(2*value)}%)`;
+                ctx.filter = ctxFilterData();
+                ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0)
             }
 
@@ -274,21 +284,22 @@
             //zmiana ID (w range'u też)
             var range = document.getElementById('sepiaran')
             var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
-            
-            range.addEventListener("mousemove", function () {
+            function change() {
                 let rangeOldVal = Number(range.value)
                 if (range.value !== rangeOldVal) {
                     //nazwa funkcji
                     setSepia(Number(range.value));
                 }
-
-            });
+            }
+            range.addEventListener("mousemove", change());
             //nazwa funkcji
             function setSepia(value) {
                 //nazwa filtra, wartości, skala
-                ctx.filter = `sepia(${value}%)`;
+                ctx.filter = ctxFilterData();
+                ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0)
             }
+            
 
         }
         function huerotateRange() {
@@ -307,11 +318,16 @@
             //nazwa funkcji
             function setHueRotate(value) {
                 //nazwa filtra, wartości, skala
-                ctx.filter = `hue-rotate(${value}deg)`;
-                ctx.drawImage(img, 0, 0)
+                
+                ctx.filter = ctxFilterData();
+                ctx.putImageData(imageData, 0, 0)
+                ctx.drawImage(img, 0, 0);
+                
             }
-
+            
+            
         }
+        
         
         let slider1 = document.getElementById("grayscaleran")
         let slider2 = document.getElementById("brightnessran")
@@ -320,6 +336,7 @@
         let slider5 = document.getElementById("saturateran")
         let slider6 = document.getElementById("sepiaran")
         let slider7 = document.getElementById("huerotateran")
+        let slider8 = document.getElementById("opacityran")
         
         let output1 = document.getElementById("span1");
         let output2 = document.getElementById("span2");
@@ -328,6 +345,7 @@
         let output5 = document.getElementById("span5");
         let output6 = document.getElementById("span6");
         let output7 = document.getElementById("span7");
+        let output8 = document.getElementById("span8");
 
         output1.innerHTML = `${slider1.value}%`;
         slider1.oninput = function () {
@@ -364,6 +382,15 @@
         slider7.oninput = function () {
             output7.innerHTML = `${this.value} stopni`;
             huerotateRange();
+        }
+        output8.innerHTML = `${slider8.value}%`;
+        slider8.oninput = function () {
+            output8.innerHTML = `${this.value}%`;
+            opacityRange();
+        }
+        function ctxFilterData() {
+            let filter = `grayscale(${slider1.value}%) brightness(${Number(slider2.value) + 100}%) contrast(${slider3.value}%) invert(${slider4.value}%) opacity(${Number(slider8.value) + 100}%) saturate(${Number(slider5.value)+100-(2*Number(slider5.value))}%) sepia(${slider6.value}%) hue-rotate(${slider7.value}deg)`;
+            return filter.toString();
         }
 
         //modyfikacje tablicy pikseli
