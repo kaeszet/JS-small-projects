@@ -21,28 +21,28 @@
 
             <label for="testfile" class="guzik-top"> Wybierz plik
             </label>
-            <input id="testfile" type="file"/>
+            <input id="testfile" type="file" />
             <!-- Ładowanie pliku do Canvas -->
             <button class="guzik-top" onclick="draw()">Załaduj do Canvas</button>
         </div>
         <div class="container-inside">
             <div class="column side">
-                <span><b>Skala szarości:</b> <span id="span1"></span></span><input class="suwak"
-                    id="grayscaleran" type="range" min="0" max="100" value="0"> <br>
+                <span><b>Skala szarości:</b> <span id="span1"></span></span><input class="suwak" id="grayscaleran"
+                    type="range" min="0" max="100" value="0"> <br>
                 <span><b>Jasność:</b> <span id="span2"></span></span><input class="suwak" id="brightnessran"
                     type="range" min="-100" max="100" value="0"> <br>
-                <span><b>Kontrast:</b> <span id="span3"></span></span><input oninput="contrastRange()" class="suwak" id="contrastran"
-                    type="range" min="0" max="300" value="100"> <br>
-                <span><b>Odwrócenie kolorów:</b> <span id="span4"></span></span><input oninput="invertRange()" class="suwak" id="invertran"
-                    type="range" min="0" max="100" value="0"> <br>
-                <span><b>Saturacja:</b> <span id="span5"></span></span><input oninput="saturateRange()" class="suwak" id="saturateran"
-                    type="range" min="0" max="100" value="0"> <br>
-                <span><b>Sepia:</b> <span id="span6"></span></span><input oninput="sepiaRange()" class="suwak" id="sepiaran"
-                    type="range" min="0" max="100" value="0"> <br>
-                <span><b>Rotacja odcieni:</b> <span id="span7"></span></span><input oninput="huerotateRange()" class="suwak" id="huerotateran"
-                    type="range" min="0" max="360" value="0"> <br>
-                <span><b>Nieprzezroczystość:</b> <span id="span8"></span></span><input oninput="opacityRange()" class="suwak" id="opacityran"
-                    type="range" min="-100" max="100" value="0"> <br>    
+                <span><b>Kontrast:</b> <span id="span3"></span></span><input oninput="contrastRange()" class="suwak"
+                    id="contrastran" type="range" min="0" max="300" value="100"> <br>
+                <span><b>Odwrócenie kolorów:</b> <span id="span4"></span></span><input oninput="invertRange()"
+                    class="suwak" id="invertran" type="range" min="0" max="100" value="0"> <br>
+                <span><b>Saturacja:</b> <span id="span5"></span></span><input oninput="saturateRange()" class="suwak"
+                    id="saturateran" type="range" min="0" max="100" value="0"> <br>
+                <span><b>Sepia:</b> <span id="span6"></span></span><input oninput="sepiaRange()" class="suwak"
+                    id="sepiaran" type="range" min="0" max="100" value="0"> <br>
+                <span><b>Rotacja odcieni:</b> <span id="span7"></span></span><input oninput="huerotateRange()"
+                    class="suwak" id="huerotateran" type="range" min="0" max="360" value="0"> <br>
+                <span><b>Nieprzezroczystość:</b> <span id="span8"></span></span><input oninput="opacityRange()"
+                    class="suwak" id="opacityran" type="range" min="-100" max="100" value="0"> <br>
             </div>
             <div class="column middle">
                 <canvas width="256" height="256" id="canva" style="border: 1px solid #000000;"></canvas>
@@ -59,15 +59,6 @@
     </div>
     <!-- Ładowanie pliku z komputera na stronę (plik musi być w tym samym folderze, co index) -->
 
-
-
-    <!-- Wymiary Canvas TODO wymiary jak ładowane foto -->
-
-
-    <!-- Range TODO zmiana jasności -->
-
-
-
     <script>
         let testImg = document.getElementById("testimg")
         let testFile = document.getElementById("testfile")
@@ -75,6 +66,7 @@
         var ctx = canva.getContext("2d")
         var img = document.getElementById('testimg')
 
+//funkcja wrzucająca plik do canvy
         function draw() {
 
             testImg.src = testFile.files[0].name
@@ -86,16 +78,17 @@
             //ctx.drawImage(img, 0, 0, img.width, img.height);
 
         }
+//save-restore - nie działa :(
         function save() {
             ctx.save();
         }
         function restore() {
             ctx.restore();
         }
-        
+
 
         //document.querySelector("#btn").addEventListener("click", imageData);
-
+//szarości (manipulacja pixeli)
         function greyScale() {
             var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
             var data = imageData.data
@@ -111,24 +104,26 @@
             ctx.putImageData(imageData, 0, 0)
 
         }
+//odwrócenie kolorów (manipulacja pixeli)
         function negative() {
             var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
             var data = imageData.data
-            for (var i = 0; i < data.length; i += 4) { 
+            for (var i = 0; i < data.length; i += 4) {
                 // red
                 data[i] = 255 - data[i];
                 // green
-                data[i + 1] = 255 - data[i+1];
+                data[i + 1] = 255 - data[i + 1];
                 // blue
-                data[i + 2] = 255 - data[i+2];
+                data[i + 2] = 255 - data[i + 2];
             }
             ctx.putImageData(imageData, 0, 0)
         }
+// sepia (manipulacja pixeli)
         function sepia() {
             var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
             var data = imageData.data
-            for (var i = 0; i < data.length; i += 4) { 
-                var sepia = 0.3 * data[i] + 0.59 * data[i+1] + 0.11 * data[i+2];
+            for (var i = 0; i < data.length; i += 4) {
+                var sepia = 0.3 * data[i] + 0.59 * data[i + 1] + 0.11 * data[i + 2];
                 // red
                 data[i] = sepia + 100;
                 // green
@@ -138,13 +133,13 @@
             }
             ctx.putImageData(imageData, 0, 0)
         }
-        
+//funkcja obsługująca suwak "skala szarości" - dodanie filtrów do CTX
         function grayScaleRange() {
 
             var range = document.getElementById('grayscaleran')
             var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
 
-
+//funkcja anonimowa obsługująca event "mousemove" - wartość sprawdzana przy ruchu myszą nad suwakiem
             range.addEventListener("mousemove", function () {
                 let rangeOldVal = Number(range.value)
                 if (range.value !== rangeOldVal) {
@@ -152,34 +147,31 @@
                 }
 
             });
+//przypisanie wartości do ctx.filter
             function setGrayScale(value) {
                 //ctx.filter = `grayscale(${value}%)`;
                 //let test = ctxFilterData();
                 ctx.filter = ctxFilterData();
                 ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0)
-
-
             }
-
         }
-        //nazwa funkcji
+//funkcja obsługująca suwak "jasność" - dodanie filtrów do CTX        
         function brightnessRange() {
-            //zmiana ID (w range'u też)
+            
             var range = document.getElementById('brightnessran')
             var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
-            
+
+//funkcja anonimowa obsługująca event "mousemove" - wartość sprawdzana przy ruchu myszą nad suwakiem
             range.addEventListener("mousemove", function () {
                 let rangeOldVal = Number(range.value)
                 if (range.value !== rangeOldVal) {
-                    //nazwa funkcji
                     setBrightness(Number(range.value));
                 }
 
             });
-            //nazwa funkcji
+            //przypisanie wartości do ctx.filter
             function setBrightness(value) {
-                //nazwa filtra, wartości, skala
                 //ctx.filter = `brightness(${value + 100}%)`;
                 ctx.filter = ctxFilterData();
                 ctx.putImageData(imageData, 0, 0)
@@ -187,148 +179,136 @@
             }
 
         }
-        //nazwa funkcji
+//funkcja obsługująca suwak "kontrast" - dodanie filtrów do CTX
         function contrastRange() {
-            //zmiana ID (w range'u też)
             var range = document.getElementById('contrastran')
             var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
-            
+
+//funkcja anonimowa obsługująca event "mousemove" - wartość sprawdzana przy ruchu myszą nad suwakiem
             range.addEventListener("mousemove", function () {
                 let rangeOldVal = Number(range.value)
                 if (range.value !== rangeOldVal) {
-                    //nazwa funkcji
+                    
                     setContrast(Number(range.value));
                 }
 
             });
-            //nazwa funkcji
+            //przypisanie wartości do ctx.filter
             function setContrast(value) {
-                //nazwa filtra, wartości, skala
                 ctx.filter = ctxFilterData();
                 ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0)
             }
 
         }
-        //nazwa funkcji
-        //TODO button
+//funkcja obsługująca suwak "odwrócenie kolorów" - dodanie filtrów do CTX
         function invertRange() {
-            //zmiana ID (w range'u też)
+            
             var range = document.getElementById('invertran')
             var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
-            
+
+//funkcja anonimowa obsługująca event "mousemove" - wartość sprawdzana przy ruchu myszą nad suwakiem
             range.addEventListener("mousemove", function () {
                 let rangeOldVal = Number(range.value)
                 if (range.value !== rangeOldVal) {
-                    //nazwa funkcji
                     setInvert(Number(range.value));
                 }
 
             });
-            //nazwa funkcji
+            //przypisanie wartości do ctx.filter
             function setInvert(value) {
-                //nazwa filtra, wartości, skala
                 ctx.filter = ctxFilterData();
                 ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0)
             }
 
         }
-        //nazwa funkcji
+//funkcja obsługująca suwak "nieprzezroczystość" - dodanie filtrów do CTX        
         function opacityRange() {
-            //zmiana ID (w range'u też)
             var range = document.getElementById('opacityran')
             var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
-            
+
+//funkcja anonimowa obsługująca event "mousemove" - wartość sprawdzana przy ruchu myszą nad suwakiem
             range.addEventListener("mousemove", function () {
                 let rangeOldVal = Number(range.value)
                 if (range.value !== rangeOldVal) {
-                    //nazwa funkcji
                     setOpacity(Number(range.value));
                 }
-
             });
-            //nazwa funkcji
+            //przypisanie wartości do ctx.filter
             function setOpacity(value) {
-                //nazwa filtra, wartości, skala
                 ctx.filter = ctxFilterData();
                 ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0)
             }
 
         }
-        //nazwa funkcji
+//funkcja obsługująca suwak "saturacja" - dodanie filtrów do CTX        
         function saturateRange() {
-            //zmiana ID (w range'u też)
+            
             var range = document.getElementById('saturateran')
             var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
-            
+
+//funkcja anonimowa obsługująca event "mousemove" - wartość sprawdzana przy ruchu myszą nad suwakiem
             range.addEventListener("mousemove", function () {
                 let rangeOldVal = Number(range.value)
                 if (range.value !== rangeOldVal) {
-                    //nazwa funkcji
+                    
                     setSaturate(Number(range.value));
                 }
 
             });
-            //nazwa funkcji
+            //przypisanie wartości do ctx.filter
             function setSaturate(value) {
-                //nazwa filtra, wartości, skala
                 ctx.filter = ctxFilterData();
                 ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0)
             }
 
         }
+//funkcja obsługująca suwak "sepia" - dodanie filtrów do CTX
         function sepiaRange() {
-            //zmiana ID (w range'u też)
+            
             var range = document.getElementById('sepiaran')
             var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
             function change() {
                 let rangeOldVal = Number(range.value)
                 if (range.value !== rangeOldVal) {
-                    //nazwa funkcji
+                    
                     setSepia(Number(range.value));
                 }
             }
+//event mousemove wywołuje change()
             range.addEventListener("mousemove", change());
-            //nazwa funkcji
+            //przypisanie wartości do ctx.filter
             function setSepia(value) {
-                //nazwa filtra, wartości, skala
                 ctx.filter = ctxFilterData();
                 ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0)
             }
-            
-
         }
+//funkcja obsługująca suwak "rotacja odcieni" - dodanie filtrów do CTX
         function huerotateRange() {
-            //zmiana ID (w range'u też)
+            
             var range = document.getElementById('huerotateran')
             var imageData = ctx.getImageData(0, 0, canva.width, canva.height)
-           
+
+//funkcja anonimowa obsługująca event "mousemove" - wartość sprawdzana przy ruchu myszą nad suwakiem
             range.addEventListener("mousemove", function () {
                 let rangeOldVal = Number(range.value)
                 if (range.value !== rangeOldVal) {
-                    //nazwa funkcji
+                    
                     setHueRotate(Number(range.value));
                 }
-
             });
-            //nazwa funkcji
+            //przypisanie wartości do ctx.filter
             function setHueRotate(value) {
-                //nazwa filtra, wartości, skala
-                
                 ctx.filter = ctxFilterData();
                 ctx.putImageData(imageData, 0, 0)
                 ctx.drawImage(img, 0, 0);
-                
             }
-            
-            
         }
-        
-        
+//slidery przypisane do zmiennych
         let slider1 = document.getElementById("grayscaleran")
         let slider2 = document.getElementById("brightnessran")
         var slider3 = document.getElementById("contrastran")
@@ -337,7 +317,7 @@
         let slider6 = document.getElementById("sepiaran")
         let slider7 = document.getElementById("huerotateran")
         let slider8 = document.getElementById("opacityran")
-        
+//przypisanie spanów - do wyświetlania wartości sliderów
         let output1 = document.getElementById("span1");
         let output2 = document.getElementById("span2");
         let output3 = document.getElementById("span3");
@@ -388,9 +368,10 @@
             output8.innerHTML = `${this.value}%`;
             opacityRange();
         }
+        //funkcja przekazująca string z filtrami do ctx.filter
         function ctxFilterData() {
-            let filter = `grayscale(${slider1.value}%) brightness(${Number(slider2.value) + 100}%) contrast(${slider3.value}%) invert(${slider4.value}%) opacity(${Number(slider8.value) + 100}%) saturate(${Number(slider5.value)+100-(2*Number(slider5.value))}%) sepia(${slider6.value}%) hue-rotate(${slider7.value}deg)`;
-            return filter.toString();
+            let filter = `grayscale(${slider1.value}%) brightness(${Number(slider2.value) + 100}%) contrast(${slider3.value}%) invert(${slider4.value}%) opacity(${Number(slider8.value) + 100}%) saturate(${Number(slider5.value) + 100 - (2 * Number(slider5.value))}%) sepia(${slider6.value}%) hue-rotate(${slider7.value}deg)`;
+            return filter;
         }
 
         //modyfikacje tablicy pikseli
