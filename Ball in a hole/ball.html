@@ -37,9 +37,9 @@
         let won = false;
         let score = 0;
         
-
+//funkcja startuje po załadowaniu bodu
         function winload() {
-
+//funkcja poruszająca diva-kulkę reagująca na zdarzenie 'deviceorientation'
             window.addEventListener('deviceorientation', moveBall)
             function moveBall(event) {
                 console.log(event)
@@ -47,12 +47,12 @@
                 let z = event.alpha;
                 let x = event.beta;
                 let y = event.gamma;
-
+//zapisuje aktualne położenie beta/gamma w preformatted text
                 output.innerHTML = "beta : " + x + "\n";
                 output.innerHTML += "gamma: " + y + "\n";
                 
                 
-
+//ograniczenie zakresu między -90 a 90 (zabezp. przed dodatkowym poruszaniem kulki przy ekranie odwróconym od twarzy)
                 if (x > 90) {
                     x = 90
                 };
@@ -68,7 +68,7 @@
                 let holeY = parseInt(hole.style.top, 10);
                 let ballX = parseInt(ball.style.left, 10);
                 let ballY = parseInt(ball.style.top, 10);
-
+//jeżeli div-kulka znajdzie się w obrębie diva-dziurki to naliczany jest punkt, tworzony jest nowy div-dziurka, wyswietlany jest alert i punkt wyswitlany jest w span "score"
                 if (ballX >= holeX && ballX <= holeX + 10 && ballY >= holeY && ballY <= holeY + 10) {
                     score++;
                     prepHole();
@@ -81,6 +81,7 @@
 
 
             }
+//tworzenie kulki w losowym miejscu
             function prepHole(event) {
 
                 let randomX = (Math.floor(Math.random() * prepHoleWidth) + 1)
@@ -108,7 +109,7 @@
             prepHole();
 
         }
-
+//countdown
         function startTimer(duration, display) {
             var timer = duration, minutes, seconds;
             setInterval(function () {
@@ -133,10 +134,7 @@
             startTimer(setCountdown, display);
         }, 20);
         setTimeout(loaded, 10)
-        setInterval(function () {
-            time--;
-        }, 1000)
-
+        
 
     </script>
 </body>
