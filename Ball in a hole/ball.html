@@ -24,14 +24,14 @@
     <pre class="output"></pre>
     <script>
         let ball = document.querySelector('.ball');
-        var poll = document.querySelector('.poll');
+        let poll = document.querySelector('.poll');
         let output = document.querySelector('.output');
-        var hole = document.querySelector('.hole');
+        let hole = document.querySelector('.hole');
         let score_f = document.querySelector('#score')
         let maxX = poll.clientWidth - ball.clientWidth;
         let maxY = poll.clientHeight - ball.clientHeight;
-        var prepHoleHeight = poll.clientHeight - hole.clientHeight;
-        var prepHoleWidth = poll.clientWidth - hole.clientWidth;
+        let prepHoleHeight = poll.clientHeight - hole.clientHeight;
+        let prepHoleWidth = poll.clientWidth - hole.clientWidth;
         let randomX = (Math.floor(Math.random() * prepHoleWidth) + 1);
         let randomY = (Math.floor(Math.random() * prepHoleHeight) + 1);
         let won = false;
@@ -120,7 +120,7 @@
 
                 display.textContent = minutes + ":" + seconds;
 
-                if (--timer < 0) {
+                if (--timer < -1) {
                     alert("Koniec gry. Zdobyłeś " + score + " punktów.")
                     location.reload();
                 }
@@ -128,7 +128,7 @@
         }
 
         setTimeout(function () {
-            var setCountdown = 60 * 2,
+            var setCountdown = 120,
                 display = document.querySelector('#time');
             startTimer(setCountdown, display);
         }, 20);
