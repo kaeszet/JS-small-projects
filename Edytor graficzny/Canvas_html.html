@@ -65,6 +65,7 @@
         var canva = document.getElementById('canva')
         var ctx = canva.getContext("2d")
         var img = document.getElementById('testimg')
+        let schowek;
 
 //funkcja wrzucająca plik do canvy
         function draw() {
@@ -80,11 +81,12 @@
         }
 //save-restore - nie działa :(
         function save() {
-            let schowek = canva.toDataURL(testImg.src);
+            schowek = canva.toDataURL(testImg.src);
 
         }
         function restore() {
             testImg.src = `${schowek}`;
+            ctx.drawImage(img, 0, 0, img.width, img.height)
         }
 
 
