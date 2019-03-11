@@ -80,10 +80,11 @@
         }
 //save-restore - nie działa :(
         function save() {
-            ctx.save();
+            let schowek = canva.toDataURL(testImg.src);
+
         }
         function restore() {
-            ctx.restore();
+            testImg.src = `${schowek}`;
         }
 
 
