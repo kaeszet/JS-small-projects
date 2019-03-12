@@ -73,6 +73,9 @@ function ruszaj (e) {
 
 }
 function stworzDziurke() {
+  //z każdym punktem ma się tworzyć nowa zła dziurka min 20 od krawędzi, kolor czerwony
+  // punkt docelowy na krawędzi, najlepiej innej za każdym razem, kolor jasnozielony
+
   let czas;
   for(i = 0; i < iloscDziurek; i++) {
     czas = Date.now();
@@ -82,4 +85,5 @@ function stworzDziurke() {
     let dziurka = document.getElementById(`dziurka_${czas}`);
     let ctx_dziurka = dziurka.getContext ('2d');
   }
+  iloscDziurek++;
 }
