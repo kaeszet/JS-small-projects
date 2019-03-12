@@ -9,10 +9,12 @@
     <link rel="stylesheet" type="text/css" href="ball_css.css">
 </head>
 
-<body onload="winload()">
+<!--<body onload="winload()">-->
+<body onload="uruchom()">
     <div>Czas: <span id="time"></span></div>
     <div>Punkty: <span id="score">0</span></div>
-    <div class="poll">
+    <!--
+        <div class="poll">
         <div class="ball">
 
         </div>
@@ -20,8 +22,33 @@
 
         </div>
     </div>
+    -->
+    <div class="pool">
+        <canvas width="600" height="600" id="canva" style="border: 5px solid #000000;">
+            <canvas width="20" height="20" id="canva_ball"></canvas>
+        </canvas>
+        
+    </div>
 
     <pre class="output"></pre>
+    <script src="ball_js.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--
     <script>
         let ball = document.querySelector('.ball');
         let poll = document.querySelector('.poll');
@@ -137,6 +164,7 @@
         
 
     </script>
+    -->
 </body>
 
 </html>
