@@ -7,15 +7,15 @@ let canvas_ball = document.getElementById ('canva_ball');
 let ctx = canvas.getContext ('2d');
 let ctx_ball = canvas_ball.getContext ('2d');
 let output = document.querySelector ('.output');
-let maxX = canvas.width - canvas_ball.width; //poll.clientWidth - ball.clientWidth;
-let maxY = canvas.height - canvas_ball.height; //poll.clientHeight - ball.clientHeight;
+let maxX = canvas.width - canvas_ball.width;
+let maxY = canvas.height - canvas_ball.height;
 let score = parseInt(localStorage.getItem(`score`), 10) || 0;
 let iloscDziurek = score + 1;
 let score_f = document.querySelector ('#score');
 score_f.innerHTML = score;
 let dziurkaArray = [];
 
-//document.addEventListener('DOMContentLoaded', uruchom)
+//funkcja wczystuje się po załadowaniu body
 function uruchom () {
   ctx.beginPath ();
   ctx.rect (0, 0, canvas.width, canvas.height);
@@ -25,12 +25,15 @@ function uruchom () {
   stworzDziurke ();
   stworzCel();
   ctx.drawImage (canvas_ball, canvas.width / 2 - canvas_ball.width / 2, canvas.height / 2 - canvas_ball.height / 2);
+  //uruchomienie funkcji "ruszaj" po wykryciu zmiany położenia urządzenia
   window.addEventListener ('deviceorientation', ruszaj);
   document.getElementById('reset').addEventListener('click', reset);
+  //fukcja, która czyści localStorage przed ponownym załadowaniem aplikacji
   window.addEventListener('beforeunload', function(event) {
     localStorage.clear();
  }, false);
 }
+//funkcja tworząca kulkę poruszaną przez użytkownika i (częściowo) kulki-przeszkody
 function stworzPilke (context, canv, promien, kolor) {
   context.beginPath ();
   context.arc (
@@ -49,6 +52,7 @@ function stworzPilke (context, canv, promien, kolor) {
   context.stroke ();
   //context.drawImage(canvas, 20, 20);
 }
+//funkcja obsługująca ruch kulki oraz skutki trafienia do celu lub w przeszkodę
 function ruszaj (e) {
   let x = e.beta;
   let y = e.gamma;
@@ -62,7 +66,6 @@ function ruszaj (e) {
   }
   ctx.drawImage (canvas_ball, old_left, old_top);
   //ctx.clearRect()
-  console.log (e);
   output.innerHTML = 'beta : ' + x + '\n';
   output.innerHTML += 'gamma: ' + y + '\n';
   if (x > 90) {
@@ -73,9 +76,7 @@ function ruszaj (e) {
   }
   x += 90;
   y += 90;
-  //ball.style.top
   canvas_ball.top = maxX * x / 180;
-  //ball.style.left
   canvas_ball.left = maxY * y / 180;
   ctx_ball.fillStyle = `black`;
   ctx_ball.fill ();
@@ -83,36 +84,29 @@ function ruszaj (e) {
   ctx_ball.strokeStyle = `#396b2b`;
   ctx_ball.stroke ();
   ctx.drawImage (canvas_ball, canvas_ball.left, canvas_ball.top);
+  //jeżeli cel jest przypięty do górnej krawędzi
   if (score % 2 == 0) {
     if (
       canvas_ball.left >= (canvas.width / 2) - (cel.width / 2) - canvas_ball.width + ctx_ball.lineWidth &&
       canvas_ball.left <= (canvas.width / 2) - (cel.width / 2) + cel.width - ctx_ball.lineWidth &&
       canvas_ball.top >= cel.height - cel.height &&
       canvas_ball.top <= cel.height - (cel.height / 2)
-  
-      //canvas_ball.left >= dziurka.left &&
-      //canvas_ball.left <= dziurka.left + 25 &&
-      //canvas_ball.top >= dziurka.top &&
-      //canvas_ball.top <= dziurka.top + 25
     ) {
       punkt();
     }
   }
+  //jeżeli cel jest przypiety do dolnej krawędzi
   else {
     if (
       canvas_ball.left >= (canvas.width / 2) - (cel.width / 2) - canvas_ball.width + ctx_ball.lineWidth &&
       canvas_ball.left <= (canvas.width / 2) - (cel.width / 2) + cel.width - ctx_ball.lineWidth &&
       canvas_ball.top >= canvas.height - cel.height - canvas_ball.height &&
       canvas_ball.top <= canvas.height
-  
-      //canvas_ball.left >= dziurka.left &&
-      //canvas_ball.left <= dziurka.left + 25 &&
-      //canvas_ball.top >= dziurka.top &&
-      //canvas_ball.top <= dziurka.top + 25
     ) {
       punkt();
     }
   }
+  //forEach do sprawdzenia, czy piłka nie wpadła w którąś przeszkodę
   dziurkaArray.forEach(dziurka => {
     if (
       canvas_ball.left >= dziurka.left - canvas_ball.width + ctx_ball.lineWidth &&
@@ -124,10 +118,8 @@ function ruszaj (e) {
     }
   });
 }
+//funkcja do tworzenia przeszkody (z każdym punktem tworzona jest dodatkowa dziurka)
 function stworzDziurke () {
-  //z każdym punktem ma się tworzyć nowa zła dziurka min 20 od krawędzi, kolor czerwony
-  // punkt docelowy na krawędzi, najlepiej innej za każdym razem, kolor jasnozielony
-
   let czas;
   let ctx_dziurka;
   for (i = 0; i < iloscDziurek; i++) {
@@ -149,6 +141,7 @@ function stworzDziurke () {
   
   
 }
+//funkcja do tworzenia celu (białej "bramki")
 function stworzCel() {
   let czas;
   let ctx_cel;
@@ -169,10 +162,12 @@ function stworzCel() {
   }
 
 }
+//czyszczenie Storage i przeładowanie strony
 function reset() {
   localStorage.clear();
   location.reload();
 }
+//naliczanie punktów za trafienie do celu
 function punkt(){
   score++;
   score_f.innerHTML = score;
@@ -180,8 +175,8 @@ function punkt(){
   //doZapisu.push(score);
   localStorage.setItem(`score`, `${score}`);
 }
+//generuje napis w przypadku przegranej
 function przegrana(tekst) {
-  //alert('Przegrałeś!');
   window.removeEventListener ('deviceorientation', ruszaj);
   ctx.font = `30pt Arial`;
   ctx.fillStyle = `pink`;
@@ -193,11 +188,12 @@ function przegrana(tekst) {
   setTimeout(function() {reset();}, 2000);
   
 }
+//czasomierz
 function startTimer(duration, display) {
   let timer = duration, minutes, seconds;
   let inter = 1000;
   setInterval(function () {
-      minutes = parseInt(timer / 60, 10)
+      minutes = parseInt(timer / 60, 10);
       seconds = parseInt(timer % 60, 10);
 
       minutes = minutes < 10 ? "0" + minutes : minutes;
@@ -209,8 +205,7 @@ function startTimer(duration, display) {
         przegrana("Koniec czasu!");
         timer = 0;
         inter = 100000;
-        //alert("Koniec czasu. Zdobyłeś " + score + " punktów.");
-        //reset();
+       
       }
       else {
         timer--;
